@@ -276,10 +276,23 @@ class AuditLogger(LoggerInterface):
         if log_file.exists() and log_file.stat().st_size > self.max_log_size:
             self._rotate_log_file(log_file)
         
-        # Write entry
+        # Write entry with custom serialization
         with open(log_file, 'a', encoding='utf-8') as f:
-            json.dump(entry, f, separators=(',', ':'))
+            json.dump(entry, f, separators=(',', ':'), default=self._json_serializer)
             f.write('\n')
+    
+    def _json_serializer(self, obj):
+        """Custom JSON serializer for non-serializable objects."""
+        if hasattr(obj, 'to_dict'):
+            return obj.to_dict()
+        elif isinstance(obj, datetime):
+            return obj.isoformat()
+        elif hasattr(obj, '__dict__'):
+            return obj.__dict__
+        elif isinstance(obj, (set, frozenset)):
+            return list(obj)
+        else:
+            return str(obj)
     
     def _rotate_log_file(self, log_file: Path) -> None:
         """Rotate log file when it exceeds maximum size."""

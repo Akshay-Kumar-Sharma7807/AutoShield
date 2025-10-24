@@ -101,6 +101,19 @@ class AssessmentResult:
     risk_description: str
     remediation_steps: List[str] = field(default_factory=list)
     timestamp: datetime = field(default_factory=datetime.now)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            'parameter_id': self.parameter_id,
+            'current_value': self.current_value,
+            'expected_value': self.expected_value,
+            'compliant': self.compliant,
+            'severity': self.severity.value,
+            'risk_description': self.risk_description,
+            'remediation_steps': self.remediation_steps,
+            'timestamp': self.timestamp.isoformat()
+        }
 
 
 @dataclass
@@ -114,6 +127,19 @@ class HardeningResult:
     timestamp: datetime = field(default_factory=datetime.now)
     backup_created: bool = False
     requires_reboot: bool = False
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            'parameter_id': self.parameter_id,
+            'previous_value': self.previous_value,
+            'applied_value': self.applied_value,
+            'success': self.success,
+            'error_message': self.error_message,
+            'timestamp': self.timestamp.isoformat(),
+            'backup_created': self.backup_created,
+            'requires_reboot': self.requires_reboot
+        }
 
 
 @dataclass
@@ -164,6 +190,15 @@ class ValidationResult:
     valid: bool
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            'parameter_id': self.parameter_id,
+            'valid': self.valid,
+            'errors': self.errors,
+            'warnings': self.warnings
+        }
 
 
 @dataclass

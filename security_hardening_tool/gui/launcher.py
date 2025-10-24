@@ -114,12 +114,16 @@ class GUILauncher:
             return 1
         
         # Check if any hardening modules are available
-        if not self.engine.get_registered_platforms():
-            self.show_error_dialog(
-                "No Modules Available",
-                "No hardening modules are available. The application cannot function without platform-specific modules."
+        registered_platforms = self.engine.get_registered_platforms()
+        if not registered_platforms:
+            # Show warning but allow GUI to continue
+            messagebox.showwarning(
+                "Limited Functionality",
+                "No hardening modules are available. The GUI will run in demonstration mode with limited functionality.\n\n"
+                "To enable full functionality:\n"
+                "• On Windows: Run as Administrator\n"
+                "• On Linux: Run with sudo privileges"
             )
-            return 1
         
         try:
             # Create and run main window

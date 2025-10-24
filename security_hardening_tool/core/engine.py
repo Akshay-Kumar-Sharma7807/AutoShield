@@ -105,6 +105,11 @@ class HardeningEngine:
             else:
                 os_info = self._system_info.os_info
             
+            # Check if module is available
+            if not self.is_module_registered(os_info.platform.value):
+                raise ValueError(f"No hardening module available for {os_info.platform.value}. "
+                               f"Please run with appropriate privileges.")
+            
             # Load hardening module
             module = self.load_hardening_module(os_info)
             
