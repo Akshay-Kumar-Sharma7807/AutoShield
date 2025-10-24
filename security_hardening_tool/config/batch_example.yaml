@@ -1,0 +1,49 @@
+# Example batch configuration file for security hardening tool
+# This file demonstrates how to configure multiple operations for batch execution
+
+# Batch metadata (optional)
+metadata:
+  name: "Security Hardening Batch Job"
+  description: "Comprehensive security assessment and hardening"
+  version: "1.0"
+
+# Operations to execute in sequence
+operations:
+  # First operation: Basic security assessment
+  - name: "Initial_Security_Assessment"
+    type: "assess"
+    level: "basic"
+    description: "Baseline security posture assessment"
+    parameters:
+      # Custom parameter overrides (optional)
+      windows.account_policies.password_history:
+        target_value: 24
+        enabled: true
+      linux.sysctl.net.ipv4.ip_forward:
+        target_value: 0
+        enabled: true
+
+  # Second operation: Apply moderate hardening
+  - name: "Moderate_Hardening"
+    type: "remediate"
+    level: "moderate"
+    backup: true
+    description: "Apply moderate security hardening"
+    parameters:
+      # Additional custom parameters
+      windows.security_options.interactive_logon_message_title:
+        target_value: "Authorized Use Only"
+        enabled: true
+
+  # Third operation: Post-hardening assessment
+  - name: "Post_Hardening_Assessment"
+    type: "assess"
+    level: "moderate"
+    description: "Verify hardening was applied correctly"
+
+# Global settings (optional)
+settings:
+  continue_on_error: true
+  output_format: "json"
+  create_backups: true
+  log_level: "INFO"

@@ -1,0 +1,617 @@
+parameters:
+  # Enhanced Authentication
+  - id: password_history_count
+    name: Password History Count
+    category: authentication
+    description: Number of previous passwords to remember
+    target_value: 24
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 12, max: 50}
+        error_message: Password history must be between 12 and 50 passwords
+    backup_required: true
+    requires_reboot: false
+
+  - id: password_max_age
+    name: Maximum Password Age
+    category: authentication
+    description: Maximum number of days before password expires
+    target_value: 90
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 30, max: 365}
+        error_message: Password age must be between 30 and 365 days
+    backup_required: true
+    requires_reboot: false
+
+  - id: account_lockout_duration
+    name: Account Lockout Duration
+    category: authentication
+    description: Duration in minutes for account lockout
+    target_value: 15
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 5, max: 60}
+        error_message: Lockout duration must be between 5 and 60 minutes
+    backup_required: true
+    requires_reboot: false
+
+  # Network Hardening
+  - id: icmp_redirects_disabled
+    name: ICMP Redirects Disabled
+    category: network
+    description: Disable ICMP redirect acceptance
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: ICMP redirect status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: ip_forwarding_disabled
+    name: IP Forwarding Disabled
+    category: network
+    description: Disable IP packet forwarding
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: IP forwarding status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Enhanced Services Control
+  - id: telnet_service_disabled
+    name: Telnet Service Disabled
+    category: services
+    description: Disable insecure Telnet service
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Telnet service status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  - id: ftp_service_disabled
+    name: FTP Service Disabled
+    category: services
+    description: Disable insecure FTP service
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: FTP service status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  # Enhanced Auditing - Moderate Level (Additional Security Policies)
+  - id: audit_security_group_management
+    name: Audit Security Group Management
+    category: auditing
+    description: Audit security group creation, deletion, and modification
+    target_value: "Success"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_process_creation
+    name: Audit Process Creation
+    category: auditing
+    description: Audit process creation events for security monitoring
+    target_value: "Success"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_account_lockout
+    name: Audit Account Lockout
+    category: auditing
+    description: Audit account lockout events for security monitoring
+    target_value: "Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_audit_policy_change
+    name: Audit Policy Change
+    category: auditing
+    description: Audit changes to audit policy configuration
+    target_value: "Success"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_sensitive_privilege_use
+    name: Audit Sensitive Privilege Use
+    category: auditing
+    description: Audit use of sensitive privileges and rights
+    target_value: "Success and Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Failed logon audit status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: privilege_use_audit
+    name: Privilege Use Audit
+    category: auditing
+    description: Audit sensitive privilege use
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Privilege use audit status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # File System Security
+  - id: guest_account_disabled
+    name: Guest Account Disabled
+    category: access_control
+    description: Disable built-in guest account
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Guest account status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Additional Windows Services (Moderate Level)
+  - id: service_fax_disabled
+    name: Fax Service Disabled
+    category: services
+    description: Disable Fax service if not required
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_iis_admin_disabled
+    name: IIS Admin Service Disabled
+    category: services
+    description: Disable IIS Admin service if web server not required
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_indexing_disabled
+    name: Indexing Service Disabled
+    category: services
+    description: Disable Indexing service to reduce attack surface
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_internet_connection_sharing_disabled
+    name: Internet Connection Sharing Disabled
+    category: services
+    description: Disable Internet Connection Sharing service
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_ipsec_policy_agent_enabled
+    name: IPSec Policy Agent Enabled
+    category: services
+    description: Enable IPSec Policy Agent for network security
+    target_value: "Automatic"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_logical_disk_manager_enabled
+    name: Logical Disk Manager Enabled
+    category: services
+    description: Ensure Logical Disk Manager service is enabled
+    target_value: "Automatic"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_messenger_disabled
+    name: Messenger Service Disabled
+    category: services
+    description: Disable Messenger service to prevent security risks
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_netbios_helper_disabled
+    name: NetBIOS Helper Disabled
+    category: services
+    description: Disable NetBIOS Helper service
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  # Additional Windows Firewall Settings (Moderate Level)
+  - id: firewall_domain_outbound_default_allow
+    name: Domain Profile Default Outbound Action Allow
+    category: firewall
+    description: Set default outbound action to allow for Domain profile
+    target_value: "Allow"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_outbound_default_allow
+    name: Private Profile Default Outbound Action Allow
+    category: firewall
+    description: Set default outbound action to allow for Private profile
+    target_value: "Allow"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_outbound_default_allow
+    name: Public Profile Default Outbound Action Allow
+    category: firewall
+    description: Set default outbound action to allow for Public profile
+    target_value: "Allow"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_domain_notifications_disabled
+    name: Domain Profile Notifications Disabled
+    category: firewall
+    description: Disable firewall notifications for Domain profile
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Notification status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_notifications_disabled
+    name: Private Profile Notifications Disabled
+    category: firewall
+    description: Disable firewall notifications for Private profile
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Notification status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_notifications_disabled
+    name: Public Profile Notifications Disabled
+    category: firewall
+    description: Disable firewall notifications for Public profile
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Notification status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Additional Linux Parameters (Moderate Level)
+  - id: linux_var_partition_nodev
+    name: /var Partition nodev Option
+    category: filesystem
+    description: Ensure /var partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_tmp_partition_nodev
+    name: /var/tmp Partition nodev Option
+    category: filesystem
+    description: Ensure /var/tmp partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_tmp_partition_nosuid
+    name: /var/tmp Partition nosuid Option
+    category: filesystem
+    description: Ensure /var/tmp partition is mounted with nosuid option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_tmp_partition_noexec
+    name: /var/tmp Partition noexec Option
+    category: filesystem
+    description: Ensure /var/tmp partition is mounted with noexec option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_partition_nodev
+    name: /var/log Partition nodev Option
+    category: filesystem
+    description: Ensure /var/log partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_partition_nosuid
+    name: /var/log Partition nosuid Option
+    category: filesystem
+    description: Ensure /var/log partition is mounted with nosuid option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_partition_noexec
+    name: /var/log Partition noexec Option
+    category: filesystem
+    description: Ensure /var/log partition is mounted with noexec option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_audit_partition_nodev
+    name: /var/log/audit Partition nodev Option
+    category: filesystem
+    description: Ensure /var/log/audit partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_audit_partition_nosuid
+    name: /var/log/audit Partition nosuid Option
+    category: filesystem
+    description: Ensure /var/log/audit partition is mounted with nosuid option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_var_log_audit_partition_noexec
+    name: /var/log/audit Partition noexec Option
+    category: filesystem
+    description: Ensure /var/log/audit partition is mounted with noexec option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_home_partition_nodev
+    name: /home Partition nodev Option
+    category: filesystem
+    description: Ensure /home partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  # Linux Network Security Parameters (Moderate Level)
+  - id: linux_net_ipv4_ip_forward_disabled
+    name: IPv4 Forwarding Disabled
+    category: network
+    description: Disable IPv4 packet forwarding
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: IP forwarding must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_all_send_redirects_disabled
+    name: IPv4 Send Redirects Disabled (All)
+    category: network
+    description: Disable sending IPv4 redirects for all interfaces
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Send redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_send_redirects_disabled
+    name: IPv4 Send Redirects Disabled (Default)
+    category: network
+    description: Disable sending IPv4 redirects for default interface
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Send redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true

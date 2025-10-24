@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "name": "Custom Security Parameters",
+    "description": "Example custom parameter configuration",
+    "version": "1.0"
+  },
+  "parameters": {
+    "windows.account_policies.password_history": {
+      "target_value": 24,
+      "enabled": true,
+      "severity": "high",
+      "description": "Enforce password history of 24 passwords"
+    },
+    "windows.account_policies.minimum_password_length": {
+      "target_value": 14,
+      "enabled": true,
+      "severity": "high",
+      "description": "Require minimum password length of 14 characters"
+    },
+    "windows.security_options.interactive_logon_message_title": {
+      "target_value": "WARNING - Authorized Use Only",
+      "enabled": true,
+      "severity": "medium",
+      "description": "Display security warning on logon"
+    },
+    "linux.sysctl.net.ipv4.ip_forward": {
+      "target_value": 0,
+      "enabled": true,
+      "severity": "high",
+      "description": "Disable IP forwarding"
+    },
+    "linux.sysctl.net.ipv4.conf.all.send_redirects": {
+      "target_value": 0,
+      "enabled": true,
+      "severity": "medium",
+      "description": "Disable sending ICMP redirects"
+    },
+    "linux.ssh.protocol": {
+      "target_value": "2",
+      "enabled": true,
+      "severity": "critical",
+      "description": "Use SSH protocol version 2 only"
+    }
+  }
+}

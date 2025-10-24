@@ -1,0 +1,6 @@
+test_param_1:
+  target_value: "test_value"
+  enabled: true
+test_param_2:
+  target_value: 123
+  enabled: false

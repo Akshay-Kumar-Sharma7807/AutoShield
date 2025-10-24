@@ -1,0 +1,1180 @@
+parameters:
+  # Advanced Authentication
+  - id: password_min_age
+    name: Minimum Password Age
+    category: authentication
+    description: Minimum number of days before password can be changed
+    target_value: 1
+    severity: low
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 0, max: 7}
+        error_message: Minimum password age must be between 0 and 7 days
+    backup_required: true
+    requires_reboot: false
+
+  - id: reversible_encryption_disabled
+    name: Reversible Encryption Disabled
+    category: authentication
+    description: Disable storing passwords using reversible encryption
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Reversible encryption status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: admin_account_lockout
+    name: Administrator Account Lockout
+    category: authentication
+    description: Enable lockout for administrator account
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Admin account lockout status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Advanced Network Security
+  - id: source_routing_disabled
+    name: Source Routing Disabled
+    category: network
+    description: Disable IP source routing
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Source routing status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: tcp_syn_cookies_enabled
+    name: TCP SYN Cookies Enabled
+    category: network
+    description: Enable TCP SYN cookies for DDoS protection
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: TCP SYN cookies status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: broadcast_ping_disabled
+    name: Broadcast Ping Disabled
+    category: network
+    description: Disable response to broadcast ping requests
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Broadcast ping status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Comprehensive Service Hardening
+  - id: snmp_service_disabled
+    name: SNMP Service Disabled
+    category: services
+    description: Disable Simple Network Management Protocol service
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: SNMP service status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  - id: print_spooler_disabled
+    name: Print Spooler Disabled
+    category: services
+    description: Disable Print Spooler service if not needed
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Print Spooler status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  - id: windows_search_disabled
+    name: Windows Search Disabled
+    category: services
+    description: Disable Windows Search service
+    target_value: false
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Windows Search status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  # Advanced Auditing
+  - id: object_access_audit
+    name: Object Access Audit
+    category: auditing
+    description: Audit file and object access
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Object access audit status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: policy_change_audit
+    name: Policy Change Audit
+    category: auditing
+    description: Audit security policy changes
+    target_value: true
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Policy change audit status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: system_events_audit
+    name: System Events Audit
+    category: auditing
+    description: Audit system events and changes
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: System events audit status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Advanced Access Control
+  - id: anonymous_sid_translation_disabled
+    name: Anonymous SID Translation Disabled
+    category: access_control
+    description: Disable anonymous SID/Name translation
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Anonymous SID translation status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: everyone_permissions_disabled
+    name: Everyone Permissions Disabled
+    category: access_control
+    description: Disable Everyone permissions for anonymous users
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Everyone permissions status must be boolean value
+    backup_required: true
+    requires_reboot: false  # C
+omprehensive Auditing - Strict Level (All Remaining Audit Policies)
+  - id: audit_application_group_management
+    name: Audit Application Group Management
+    category: auditing
+    description: Audit application group management events
+    target_value: "Success and Failure"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_pnp_activity
+    name: Audit PNP Activity
+    category: auditing
+    description: Audit Plug and Play device activity
+    target_value: "Success"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_other_logon_logoff_events
+    name: Audit Other Logon/Logoff Events
+    category: auditing
+    description: Audit other logon and logoff events
+    target_value: "Success and Failure"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_file_share
+    name: Audit File Share Access
+    category: auditing
+    description: Audit file share access events
+    target_value: "Success and Failure"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_removable_storage
+    name: Audit Removable Storage
+    category: auditing
+    description: Audit removable storage device access
+    target_value: "Success and Failure"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_other_policy_change_events
+    name: Audit Other Policy Change Events
+    category: auditing
+    description: Audit other policy change events
+    target_value: "Failure"
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  # Additional Windows Services (Strict Level - All Remaining Services)
+  - id: service_netlogon_enabled
+    name: Netlogon Service Enabled
+    category: services
+    description: Ensure Netlogon service is enabled for domain authentication
+    target_value: "Automatic"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_network_connections_enabled
+    name: Network Connections Service Enabled
+    category: services
+    description: Ensure Network Connections service is enabled
+    target_value: "Manual"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_network_dde_disabled
+    name: Network DDE Service Disabled
+    category: services
+    description: Disable Network DDE service to prevent security risks
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_network_dde_dsdm_disabled
+    name: Network DDE DSDM Service Disabled
+    category: services
+    description: Disable Network DDE DSDM service
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_nt_lm_security_support_provider_enabled
+    name: NT LM Security Support Provider Enabled
+    category: services
+    description: Ensure NT LM Security Support Provider is enabled
+    target_value: "Manual"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_removable_storage_disabled
+    name: Removable Storage Service Disabled
+    category: services
+    description: Disable Removable Storage service if not required
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_routing_remote_access_disabled
+    name: Routing and Remote Access Disabled
+    category: services
+    description: Disable Routing and Remote Access service
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_simple_tcp_ip_services_disabled
+    name: Simple TCP/IP Services Disabled
+    category: services
+    description: Disable Simple TCP/IP Services
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_smart_card_disabled
+    name: Smart Card Service Disabled
+    category: services
+    description: Disable Smart Card service if not using smart cards
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_smart_card_helper_disabled
+    name: Smart Card Helper Disabled
+    category: services
+    description: Disable Smart Card Helper service
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_tcp_ip_netbios_helper_disabled
+    name: TCP/IP NetBIOS Helper Disabled
+    category: services
+    description: Disable TCP/IP NetBIOS Helper service
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_telephony_disabled
+    name: Telephony Service Disabled
+    category: services
+    description: Disable Telephony service if not required
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_terminal_services_disabled
+    name: Terminal Services Disabled
+    category: services
+    description: Disable Terminal Services if not required
+    target_value: "Disabled"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_uninterruptible_power_supply_disabled
+    name: Uninterruptible Power Supply Disabled
+    category: services
+    description: Disable UPS service if not using UPS
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_upload_manager_disabled
+    name: Upload Manager Disabled
+    category: services
+    description: Disable Upload Manager service
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_web_client_disabled
+    name: Web Client Service Disabled
+    category: services
+    description: Disable Web Client service
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  # Additional Windows Firewall Settings (Strict Level)
+  - id: firewall_domain_logging_enabled
+    name: Domain Profile Logging Enabled
+    category: firewall
+    description: Enable logging for Domain profile firewall
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Logging status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_logging_enabled
+    name: Private Profile Logging Enabled
+    category: firewall
+    description: Enable logging for Private profile firewall
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Logging status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_logging_enabled
+    name: Public Profile Logging Enabled
+    category: firewall
+    description: Enable logging for Public profile firewall
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Logging status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_domain_log_dropped_packets
+    name: Domain Profile Log Dropped Packets
+    category: firewall
+    description: Log dropped packets for Domain profile
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log dropped packets status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_log_dropped_packets
+    name: Private Profile Log Dropped Packets
+    category: firewall
+    description: Log dropped packets for Private profile
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log dropped packets status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_log_dropped_packets
+    name: Public Profile Log Dropped Packets
+    category: firewall
+    description: Log dropped packets for Public profile
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log dropped packets status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_domain_log_successful_connections
+    name: Domain Profile Log Successful Connections
+    category: firewall
+    description: Log successful connections for Domain profile
+    target_value: true
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log successful connections status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_log_successful_connections
+    name: Private Profile Log Successful Connections
+    category: firewall
+    description: Log successful connections for Private profile
+    target_value: true
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log successful connections status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_log_successful_connections
+    name: Public Profile Log Successful Connections
+    category: firewall
+    description: Log successful connections for Public profile
+    target_value: true
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Log successful connections status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  # Comprehensive Linux Parameters (Strict Level)
+  - id: linux_dev_shm_partition_nodev
+    name: /dev/shm Partition nodev Option
+    category: filesystem
+    description: Ensure /dev/shm partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_dev_shm_partition_nosuid
+    name: /dev/shm Partition nosuid Option
+    category: filesystem
+    description: Ensure /dev/shm partition is mounted with nosuid option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_dev_shm_partition_noexec
+    name: /dev/shm Partition noexec Option
+    category: filesystem
+    description: Ensure /dev/shm partition is mounted with noexec option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  # Linux Network Security Parameters (Strict Level)
+  - id: linux_net_ipv4_conf_all_accept_source_route_disabled
+    name: IPv4 Accept Source Route Disabled (All)
+    category: network
+    description: Disable accepting source routed packets for all interfaces
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Accept source route must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_accept_source_route_disabled
+    name: IPv4 Accept Source Route Disabled (Default)
+    category: network
+    description: Disable accepting source routed packets for default interface
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Accept source route must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_all_accept_redirects_disabled
+    name: IPv4 Accept Redirects Disabled (All)
+    category: network
+    description: Disable accepting ICMP redirects for all interfaces
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Accept redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_accept_redirects_disabled
+    name: IPv4 Accept Redirects Disabled (Default)
+    category: network
+    description: Disable accepting ICMP redirects for default interface
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Accept redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_all_secure_redirects_disabled
+    name: IPv4 Secure Redirects Disabled (All)
+    category: network
+    description: Disable accepting secure ICMP redirects for all interfaces
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Secure redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_secure_redirects_disabled
+    name: IPv4 Secure Redirects Disabled (Default)
+    category: network
+    description: Disable accepting secure ICMP redirects for default interface
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Secure redirects must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_all_log_martians_enabled
+    name: IPv4 Log Martians Enabled (All)
+    category: network
+    description: Enable logging of suspicious packets for all interfaces
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Log martians must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_log_martians_enabled
+    name: IPv4 Log Martians Enabled (Default)
+    category: network
+    description: Enable logging of suspicious packets for default interface
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Log martians must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_icmp_echo_ignore_broadcasts_enabled
+    name: IPv4 Ignore ICMP Echo Broadcasts
+    category: network
+    description: Ignore ICMP echo requests to broadcast addresses
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Ignore broadcasts must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_icmp_ignore_bogus_error_responses_enabled
+    name: IPv4 Ignore Bogus ICMP Error Responses
+    category: network
+    description: Ignore bogus ICMP error responses
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: Ignore bogus responses must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_all_rp_filter_enabled
+    name: IPv4 Reverse Path Filtering Enabled (All)
+    category: network
+    description: Enable reverse path filtering for all interfaces
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1, 2]
+        error_message: RP filter must be 0 (disabled), 1 (strict), or 2 (loose)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_conf_default_rp_filter_enabled
+    name: IPv4 Reverse Path Filtering Enabled (Default)
+    category: network
+    description: Enable reverse path filtering for default interface
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1, 2]
+        error_message: RP filter must be 0 (disabled), 1 (strict), or 2 (loose)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_net_ipv4_tcp_syncookies_enabled
+    name: IPv4 TCP SYN Cookies Enabled
+    category: network
+    description: Enable TCP SYN cookies for DDoS protection
+    target_value: 1
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [0, 1]
+        error_message: TCP SYN cookies must be 0 (disabled) or 1 (enabled)
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  # Linux SSH Hardening Parameters (Strict Level)
+  - id: linux_ssh_protocol_2
+    name: SSH Protocol 2 Only
+    category: ssh
+    description: Ensure SSH uses only protocol version 2
+    target_value: 2
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: [2]
+        error_message: SSH protocol must be version 2
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_loglevel_info
+    name: SSH Log Level Info
+    category: ssh
+    description: Set SSH log level to INFO for security monitoring
+    target_value: "INFO"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["QUIET", "FATAL", "ERROR", "INFO", "VERBOSE", "DEBUG", "DEBUG1", "DEBUG2", "DEBUG3"]
+        error_message: SSH log level must be valid log level
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_x11_forwarding_disabled
+    name: SSH X11 Forwarding Disabled
+    category: ssh
+    description: Disable SSH X11 forwarding for security
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: X11 forwarding status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_max_auth_tries
+    name: SSH Maximum Authentication Tries
+    category: ssh
+    description: Limit SSH authentication attempts
+    target_value: 4
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 1, max: 6}
+        error_message: Max auth tries must be between 1 and 6
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_ignore_rhosts_enabled
+    name: SSH Ignore Rhosts Enabled
+    category: ssh
+    description: Ensure SSH ignores .rhosts files
+    target_value: true
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Ignore rhosts status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_hostbased_authentication_disabled
+    name: SSH Host-based Authentication Disabled
+    category: ssh
+    description: Disable SSH host-based authentication
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Host-based authentication status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_permit_root_login_disabled
+    name: SSH Root Login Disabled
+    category: ssh
+    description: Disable SSH root login for security
+    target_value: false
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Root login status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_permit_empty_passwords_disabled
+    name: SSH Empty Passwords Disabled
+    category: ssh
+    description: Disable SSH login with empty passwords
+    target_value: false
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Empty passwords status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_permit_user_environment_disabled
+    name: SSH User Environment Disabled
+    category: ssh
+    description: Disable SSH user environment processing
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: User environment status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_cipher_aes
+    name: SSH Strong Ciphers Only
+    category: ssh
+    description: Use only strong ciphers for SSH encryption
+    target_value: "aes256-ctr,aes192-ctr,aes128-ctr"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: regex
+        rule_value: "^(aes256-ctr|aes192-ctr|aes128-ctr)(,(aes256-ctr|aes192-ctr|aes128-ctr))*$"
+        error_message: SSH ciphers must be strong AES ciphers
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_mac_hmac_sha2
+    name: SSH Strong MACs Only
+    category: ssh
+    description: Use only strong MAC algorithms for SSH
+    target_value: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: regex
+        rule_value: "^(hmac-sha2-512-etm@openssh\\.com|hmac-sha2-256-etm@openssh\\.com|hmac-sha2-512|hmac-sha2-256)(,(hmac-sha2-512-etm@openssh\\.com|hmac-sha2-256-etm@openssh\\.com|hmac-sha2-512|hmac-sha2-256))*$"
+        error_message: SSH MACs must be strong SHA-2 based algorithms
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_kex_algorithms
+    name: SSH Strong Key Exchange Algorithms
+    category: ssh
+    description: Use only strong key exchange algorithms for SSH
+    target_value: "curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: regex
+        rule_value: "^(curve25519-sha256|diffie-hellman-group14-sha256|diffie-hellman-group16-sha512|diffie-hellman-group18-sha512|ecdh-sha2-nistp521|ecdh-sha2-nistp384|ecdh-sha2-nistp256|diffie-hellman-group-exchange-sha256)(,(curve25519-sha256|diffie-hellman-group14-sha256|diffie-hellman-group16-sha512|diffie-hellman-group18-sha512|ecdh-sha2-nistp521|ecdh-sha2-nistp384|ecdh-sha2-nistp256|diffie-hellman-group-exchange-sha256))*$"
+        error_message: SSH key exchange algorithms must be strong algorithms
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_client_alive_interval
+    name: SSH Client Alive Interval
+    category: ssh
+    description: Set SSH client alive interval for idle timeout
+    target_value: 300
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 1, max: 3600}
+        error_message: Client alive interval must be between 1 and 3600 seconds
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_client_alive_count_max
+    name: SSH Client Alive Count Max
+    category: ssh
+    description: Set maximum SSH client alive count
+    target_value: 0
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 0, max: 10}
+        error_message: Client alive count max must be between 0 and 10
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_login_grace_time
+    name: SSH Login Grace Time
+    category: ssh
+    description: Set SSH login grace time limit
+    target_value: 60
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 1, max: 600}
+        error_message: Login grace time must be between 1 and 600 seconds
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_banner_enabled
+    name: SSH Banner Enabled
+    category: ssh
+    description: Enable SSH warning banner
+    target_value: "/etc/issue.net"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: regex
+        rule_value: "^/etc/(issue\\.net|motd|ssh_banner)$"
+        error_message: SSH banner must be valid banner file path
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_pam_enabled
+    name: SSH PAM Enabled
+    category: ssh
+    description: Enable SSH PAM authentication
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: PAM authentication status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_tcp_forwarding_disabled
+    name: SSH TCP Forwarding Disabled
+    category: ssh
+    description: Disable SSH TCP forwarding for security
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: TCP forwarding status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_max_startups
+    name: SSH Max Startups
+    category: ssh
+    description: Limit SSH concurrent unauthenticated connections
+    target_value: "10:30:60"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: regex
+        rule_value: "^\\d+:\\d+:\\d+$"
+        error_message: Max startups must be in format start:rate:full
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_ssh_max_sessions
+    name: SSH Max Sessions
+    category: ssh
+    description: Limit SSH maximum sessions per connection
+    target_value: 4
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 1, max: 10}
+        error_message: Max sessions must be between 1 and 10
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true

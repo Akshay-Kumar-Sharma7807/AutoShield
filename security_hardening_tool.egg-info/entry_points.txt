@@ -1,0 +1,2 @@
+[console_scripts]
+security-hardening = security_hardening_tool.cli.main:main

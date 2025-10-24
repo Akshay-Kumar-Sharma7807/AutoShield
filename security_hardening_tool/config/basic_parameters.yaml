@@ -1,0 +1,465 @@
+parameters:
+  # Authentication and Password Policies
+  - id: password_min_length
+    name: Minimum Password Length
+    category: authentication
+    description: Enforce minimum password length for user accounts
+    target_value: 12
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 8, max: 128}
+        error_message: Password length must be between 8 and 128 characters
+    backup_required: true
+    requires_reboot: false
+
+  - id: password_complexity
+    name: Password Complexity Requirements
+    category: authentication
+    description: Enforce password complexity requirements
+    target_value: true
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Password complexity must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: account_lockout_threshold
+    name: Account Lockout Threshold
+    category: authentication
+    description: Number of failed logon attempts before account lockout
+    target_value: 5
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 1, max: 10}
+        error_message: Account lockout threshold must be between 1 and 10 attempts
+    backup_required: true
+    requires_reboot: false
+
+  # Network Security
+  - id: firewall_enabled
+    name: Firewall Enabled
+    category: network
+    description: Ensure firewall is enabled and active
+    target_value: true
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Firewall status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: remote_desktop_disabled
+    name: Remote Desktop Disabled
+    category: network
+    description: Disable Remote Desktop Protocol (RDP) service
+    target_value: false
+    severity: high
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Remote Desktop status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  # System Services
+  - id: unnecessary_services_disabled
+    name: Unnecessary Services Disabled
+    category: services
+    description: Disable unnecessary system services
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Service status must be boolean value
+    backup_required: true
+    requires_reboot: true
+
+  # Audit and Logging - Basic Level (Critical Audit Policies)
+  - id: audit_credential_validation
+    name: Audit Credential Validation
+    category: auditing
+    description: Audit credential validation events for logon attempts
+    target_value: "Success and Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_user_account_management
+    name: Audit User Account Management
+    category: auditing
+    description: Audit user account creation, deletion, and modification
+    target_value: "Success and Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_logon
+    name: Audit Logon Events
+    category: auditing
+    description: Audit successful and failed logon attempts
+    target_value: "Success and Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: audit_system_integrity
+    name: Audit System Integrity
+    category: auditing
+    description: Audit system integrity violations and security events
+    target_value: "Success and Failure"
+    severity: high
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Success", "Failure", "Success and Failure", "No Auditing"]
+        error_message: Audit setting must be valid audit configuration
+    backup_required: true
+    requires_reboot: false
+
+  - id: log_retention_days
+    name: Log Retention Period
+    category: auditing
+    description: Number of days to retain audit logs
+    target_value: 90
+    severity: medium
+    compliance_frameworks: [NIST, ISO27001]
+    validation_rules:
+      - rule_type: range
+        rule_value: {min: 30, max: 365}
+        error_message: Log retention must be between 30 and 365 days
+    backup_required: true
+    requires_reboot: false
+
+  # Windows System Services (Basic Level - Critical Services)
+  - id: service_alerter_disabled
+    name: Alerter Service Disabled
+    category: services
+    description: Disable Alerter service to prevent security risks
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_clipbook_disabled
+    name: ClipBook Service Disabled
+    category: services
+    description: Disable ClipBook service to prevent unauthorized access
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_computer_browser_disabled
+    name: Computer Browser Service Disabled
+    category: services
+    description: Disable Computer Browser service
+    target_value: "Disabled"
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_dhcp_client_enabled
+    name: DHCP Client Service Enabled
+    category: services
+    description: Ensure DHCP Client service is enabled for network connectivity
+    target_value: "Automatic"
+    severity: high
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  - id: service_distributed_link_tracking_client_disabled
+    name: Distributed Link Tracking Client Disabled
+    category: services
+    description: Disable Distributed Link Tracking Client service
+    target_value: "Disabled"
+    severity: low
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Automatic", "Manual", "Disabled"]
+        error_message: Service state must be valid Windows service state
+    backup_required: true
+    requires_reboot: true
+
+  # Windows Firewall Settings (Basic Level - Critical Settings)
+  - id: firewall_domain_profile_enabled
+    name: Domain Profile Firewall Enabled
+    category: firewall
+    description: Enable Windows Defender Firewall for Domain profile
+    target_value: true
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Firewall profile status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_profile_enabled
+    name: Private Profile Firewall Enabled
+    category: firewall
+    description: Enable Windows Defender Firewall for Private profile
+    target_value: true
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Firewall profile status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_profile_enabled
+    name: Public Profile Firewall Enabled
+    category: firewall
+    description: Enable Windows Defender Firewall for Public profile
+    target_value: true
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Firewall profile status must be boolean value
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_domain_inbound_default_block
+    name: Domain Profile Default Inbound Action Block
+    category: firewall
+    description: Set default inbound action to block for Domain profile
+    target_value: "Block"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_private_inbound_default_block
+    name: Private Profile Default Inbound Action Block
+    category: firewall
+    description: Set default inbound action to block for Private profile
+    target_value: "Block"
+    severity: high
+    compliance_frameworks: [CIS, NIST]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  - id: firewall_public_inbound_default_block
+    name: Public Profile Default Inbound Action Block
+    category: firewall
+    description: Set default inbound action to block for Public profile
+    target_value: "Block"
+    severity: critical
+    compliance_frameworks: [CIS, NIST, ISO27001]
+    validation_rules:
+      - rule_type: enum
+        rule_value: ["Allow", "Block"]
+        error_message: Firewall action must be Allow or Block
+    backup_required: true
+    requires_reboot: false
+
+  # Linux Basic Parameters
+  - id: linux_kernel_module_cramfs_disabled
+    name: Disable cramfs Kernel Module
+    category: filesystem
+    description: Disable cramfs filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_freevxfs_disabled
+    name: Disable freevxfs Kernel Module
+    category: filesystem
+    description: Disable freevxfs filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_jffs2_disabled
+    name: Disable jffs2 Kernel Module
+    category: filesystem
+    description: Disable jffs2 filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_hfs_disabled
+    name: Disable hfs Kernel Module
+    category: filesystem
+    description: Disable hfs filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_hfsplus_disabled
+    name: Disable hfsplus Kernel Module
+    category: filesystem
+    description: Disable hfsplus filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_squashfs_disabled
+    name: Disable squashfs Kernel Module
+    category: filesystem
+    description: Disable squashfs filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_kernel_module_udf_disabled
+    name: Disable udf Kernel Module
+    category: filesystem
+    description: Disable udf filesystem kernel module
+    target_value: false
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Kernel module status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_tmp_partition_nodev
+    name: /tmp Partition nodev Option
+    category: filesystem
+    description: Ensure /tmp partition is mounted with nodev option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_tmp_partition_nosuid
+    name: /tmp Partition nosuid Option
+    category: filesystem
+    description: Ensure /tmp partition is mounted with nosuid option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
+
+  - id: linux_tmp_partition_noexec
+    name: /tmp Partition noexec Option
+    category: filesystem
+    description: Ensure /tmp partition is mounted with noexec option
+    target_value: true
+    severity: medium
+    compliance_frameworks: [CIS]
+    validation_rules:
+      - rule_type: type
+        rule_value: boolean
+        error_message: Mount option status must be boolean value
+    backup_required: true
+    requires_reboot: false
+    platform_specific: true
