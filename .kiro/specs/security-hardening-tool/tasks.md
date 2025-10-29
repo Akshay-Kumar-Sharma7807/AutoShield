@@ -362,25 +362,33 @@
   - Add tests for system resource constraints and recovery mechanisms
   - _Requirements: 9.1, 9.2, 9.4_
 
-- [ ] 10. Integration testing and final system validation
+- [x] 10. Integration testing and final system validation
+
+
   - Perform end-to-end testing across all supported operating systems
   - Validate complete hardening workflows with rollback testing
   - Verify compliance with all Annexure A/B requirements
   - _Requirements: All requirements validation_
 
-- [ ] 10.1 Conduct Windows integration testing
+- [x] 10.1 Conduct Windows integration testing
+
+
   - Test complete Windows hardening workflows on Windows 10/11 systems
   - Validate registry, service, firewall, and audit policy modifications
   - Perform backup and rollback testing for Windows-specific configurations
   - _Requirements: 1.1, 2.2, 5.1, 5.2_
 
-- [ ] 10.2 Conduct Linux integration testing
+- [x] 10.2 Conduct Linux integration testing
+
+
   - Test complete Linux hardening workflows on Ubuntu 20.04+, CentOS 7+ systems
   - Validate sysctl, PAM, SSH, auditd, and firewall configurations
   - Perform backup and rollback testing for Linux-specific configurations
   - _Requirements: 1.1, 2.3, 5.1, 5.2_
 
-- [ ] 10.3 Validate Annexure compliance and reporting accuracy
+- [x] 10.3 Validate Annexure compliance and reporting accuracy
+
+
   - Verify all 150+ Windows parameters from Annexure-A are implemented and working
   - Confirm all 200+ Linux parameters from Annexure-B are covered and functional
   - Test report generation accuracy and compliance framework mapping for both platforms
